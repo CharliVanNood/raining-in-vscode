@@ -15,7 +15,13 @@ import {
 import { optimize } from "svgo";
 
 const isWin = /^win/.test(process.platform);
-const appDir = `${path.dirname(vscode.env.appRoot)}/app/out`;
+var appDir = "";
+if (process.platform == "linux") {
+  appDir = `${vscode.env.appRoot}/out`;
+} else {
+  appDir = `${path.dirname(vscode.env.appRoot)}/app/out`;
+}
+
 const base = appDir + (isWin ? "\\vs\\code" : "/vs/code");
 const electronBase = isVSCodeBelowVersion("1.70.0")
   ? "electron-browser"
@@ -27,6 +33,7 @@ function workbenchPath(filename: string): string {
       : `/${electronBase}/workbench/${filename}`);
 }
 const normalHtmlFile = workbenchPath("workbench.esm.html");
+const baseHtmlFile = workbenchPath("workbench.html");
 
 // TODO(torshepherd): Is this right? Should this be .esm.html too:
 const monkeyPatchFile = workbenchPath("workbench-monkey-patch.html");
@@ -38,7 +45,11 @@ function getHTMLPath(): string {
     );
     return monkeyPatchFile;
   }
-  return normalHtmlFile;
+  if (existsSync(normalHtmlFile)) {
+    return normalHtmlFile;
+  } else {
+    return baseHtmlFile;
+  }
 }
 
 export function activate(context: vscode.ExtensionContext) {

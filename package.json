@@ -176,23 +176,24 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.94.0",
     "@types/mocha": "^10.0.9",
     "@types/node": "22.x",
+    "@types/vscode": "^1.110.0",
     "@typescript-eslint/eslint-plugin": "^8.10.0",
     "@typescript-eslint/parser": "^8.10.0",
+    "@vscode/test-electron": "^2.4.1",
     "eslint": "^9.12.0",
     "glob": "^11.0.0",
     "mocha": "^10.7.3",
-    "typescript": "^5.6.3",
-    "@vscode/test-electron": "^2.4.1"
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@svgdotjs/svg.js": "^3.1.2",
     "hex-rgb": "4.3.0",
     "mini-svg-data-uri": "^1.4.4",
     "svgdom": "^0.1.10",
-    "svgo": "^2.8.0"
+    "svgo": "^2.8.0",
+    "vscode": "^1.1.37"
   },
   "license": "MIT"
 }
