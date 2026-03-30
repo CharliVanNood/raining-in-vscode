@@ -4,6 +4,7 @@ import * as vscode from "vscode";
 import svgToMiniDataURI = require("mini-svg-data-uri");
 import { generateRainBackground, RainConfig } from "./generateRain";
 import {
+  getAppDirectory,
   asNotNaN,
   deleteScriptTag,
   writeScriptTag,
@@ -11,16 +12,16 @@ import {
   getHTMLContent,
   importRainConfig,
 } from "./utils";
+import {
+  cleanupOrigFiles,
+  apply,
+  restore
+} from "./fixChecksums";
 // @ts-ignore
 import { optimize } from "svgo";
 
 const isWin = /^win/.test(process.platform);
-var appDir = "";
-if (process.platform == "linux") {
-  appDir = `${vscode.env.appRoot}/out`;
-} else {
-  appDir = `${path.dirname(vscode.env.appRoot)}/app/out`;
-}
+const appDir = getAppDirectory();
 
 const base = appDir + (isWin ? "\\vs\\code" : "/vs/code");
 const electronBase = isVSCodeBelowVersion("1.70.0")
@@ -77,6 +78,8 @@ export function activate(context: vscode.ExtensionContext) {
         }
       });
   }
+
+  //cleanupOrigFiles();
 
   console.log("RAINING IN V S C O D E extension is now active.");
 
@@ -160,6 +163,8 @@ export function activate(context: vscode.ExtensionContext) {
             vscConfig
           );
         }
+        apply();
+        console.log("APPLIED CHECKSUM FIXES");
       } catch (e: any) {
         handleErrors(e);
       }
@@ -173,7 +178,7 @@ export function activate(context: vscode.ExtensionContext) {
         let disabledAny = false;
         const vscConfig = vscode.workspace.getConfiguration("rainingin");
         const autoreload = vscConfig.get("autoreload", false);
-        for (const htmlFile of [normalHtmlFile, monkeyPatchFile]) {
+        for (const htmlFile of [normalHtmlFile, monkeyPatchFile, baseHtmlFile]) {
           if (existsSync(htmlFile)) {
             const html = getHTMLContent(htmlFile);
             if (html.isEnabled) {

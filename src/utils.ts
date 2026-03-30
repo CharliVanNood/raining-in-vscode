@@ -1,6 +1,17 @@
 import { readFileSync } from "fs";
 import * as vscode from "vscode";
 import { RainConfig } from "./generateRain";
+import path = require("path");
+
+export function getAppDirectory() {
+  var appDir = "";
+  if (process.platform == "linux") {
+    appDir = `${vscode.env.appRoot}/out`;
+  } else {
+    appDir = `${path.dirname(vscode.env.appRoot)}/app/out`;
+  }
+  return appDir;
+}
 
 export function asNotNaN(value: number, backup: number = 0): number {
   return isNaN(value) ? backup : value;

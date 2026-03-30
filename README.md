@@ -1,10 +1,11 @@
-# RAINING IN V S C O D E
+# RAINING IN V S C O D E - Updated Edition
 
 Inspired by [RAINING IN M I A M I](https://www.youtube.com/watch?v=1N8zRJpfnMM), I bring you:
 
 ![RAINING IN V S C O D E demo code](resources/demo_2.gif)
 
-For all of your soothing rain lofi vibes while coding.
+For all of your soothing rain lofi vibes while coding.  
+I had to copy in the extension [vscode-fix-checksums](https://github.com/lehni/vscode-fix-checksums) by lehni
 
 ## Installation
 
@@ -20,12 +21,6 @@ To get this running on linux it needs to have the permissions to edit your vscod
 
 If your code installation is in lib/code, use this:  
 `sudo chown -R $USER:$USER /usr/lib/code`
-
-### To remove corruption warning and `[unsupported]` from title-bar
-
-Because of modifying the actual html of VS Code, it will interpret this as the core being 'corrupted' and you may see an error message on restarting your editor. You can remove it entirely with the [Fix VSCode Checksums](https://marketplace.visualstudio.com/items?itemName=lehni.vscode-fix-checksums) extension.
-
-Upon installation of 'Fix VSCode Checksums', open the command palette and execute `Fix Checksums: Apply`. You will need to completely restart VSCode after execution, reopening without fully exiting might not be enough.
 
 ## Customization
 
